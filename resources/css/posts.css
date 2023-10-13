@@ -1,6 +1,6 @@
 .post {
     width: 95%;
-    margin-left: 1px auto;
+    margin: 1px auto;
     margin-top: 30px;
     border: 1px solid black;
     border-radius: 5px;
@@ -8,6 +8,16 @@
 
 .title {
     font-size: 2em;
+}
+
+.create {
+    font-size: 2.5em;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid rgb(17,24,39);
+    background-color: rgb(17,24,39);
+    width: 50%;
+    margin-left: 24%;
 }
 
 .content {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostsRequest;
 use App\Http\Requests\UpdatePostsRequest;
 use App\Models\Posts;
+use App\Models\User;
 
 class PostsController extends Controller
 {
@@ -14,7 +15,8 @@ class PostsController extends Controller
     public function index()
     {
         //On récupère tous les Post
-        $posts = Posts::latest()->get();
+        // $posts = Posts::latest()->get();
+        $posts = Posts::with('user')->get();
 
         // On transmet les Post à la vue
         return view("posts.index", compact("posts"));
@@ -33,19 +35,14 @@ class PostsController extends Controller
      */
     public function store(StorePostsRequest $request)
     {
-        if ($request->link) {
-            Posts::create([
-                "title" => $request->title,
-                "link" => $request->link,
-                "content" => $request->content,
-            ]);
-        } else {
-            Posts::create([
-                "title" => $request->title,
-                "link" => "",
-                "content" => $request->content,
-            ]);
-        }
+        $user = User::find($request->user()->id);
+
+        $post = $user->posts()->create([
+            "title" => $request->title,
+            "link" => $request->link,
+            "content" => $request->content,
+        ]);
+
         
     
         return redirect(route("posts.index"));
@@ -72,10 +69,12 @@ class PostsController extends Controller
      */
     public function update(UpdatePostRequest $request, Posts $posts)
     {
-        $posts->update([
+        $user = User::find($request->user()->id);
+
+        $post = $user->posts()->update([
             "title" => $request->title,
             "link" => $request->link,
-            "content" => $request->content
+            "content" => $request->content,
         ]);
     
         return redirect(route("posts.show", $posts));

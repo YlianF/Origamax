@@ -1,0 +1,14 @@
+.content {
+    background-color: transparent;
+    overflow:hidden;
+    resize:none;
+    border: 0px;
+    font-size: 1.3em;
+    height: 500px;
+    width: 100%;
+}
+
+.title {
+    font-size: 3em;
+    text-align: center;
+}
