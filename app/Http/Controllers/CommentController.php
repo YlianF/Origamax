@@ -7,8 +7,8 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Models\Posts;
 use App\Models\User;
 use App\Models\Comment;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\PostCommented;
+use App\Events\CommentEvent;
 
 class CommentController extends Controller
 {
@@ -30,7 +30,9 @@ class CommentController extends Controller
         ]);
 
 
-        Mail::to($post->user->email)->send(new PostCommented($comment));
+        event(new CommentEvent($comment, $post));
+
+        
 
 
         return view("posts.show", compact("post"));
