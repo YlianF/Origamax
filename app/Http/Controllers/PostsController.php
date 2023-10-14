@@ -8,6 +8,8 @@ use App\Models\Posts;
 use App\Models\User;
 use App\Models\Comment;
 
+use Mail;
+
 class PostsController extends Controller
 {
     /**
@@ -51,6 +53,9 @@ class PostsController extends Controller
      */
     public function show(Posts $post)
     {
+        
+
+
         return view("posts.show", compact("post"));
     }
 
