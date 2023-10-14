@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostsRequest;
 use App\Http\Requests\UpdatePostsRequest;
 use App\Models\Posts;
 use App\Models\User;
+use App\Models\Comment;
 
 class PostsController extends Controller
 {
@@ -14,8 +15,6 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //On récupère tous les Post
-        // $posts = Posts::latest()->get();
         $posts = Posts::with('user')->paginate();
 
         return view('posts.index', [
@@ -44,8 +43,6 @@ class PostsController extends Controller
             "content" => $request->content,
         ]);
 
-        
-    
         return redirect(route("posts.index"));
     }
 

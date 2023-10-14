@@ -18,7 +18,7 @@
 
                             <h1 class="title">{{ $post->user->name }}</h1>
                             
-                            @if ($post->link !== "")
+                            @if ($post->link !== null)
                             <a href="{{ $post->link }}" class="link" title="voir le lien" >Voir le tutoriel</a>
                             @endif
 

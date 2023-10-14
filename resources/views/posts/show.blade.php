@@ -8,12 +8,36 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1 class="title">{{ $post->title }}</h1>
 
+                    
+                    @if ($post->link !== null)
                     <a href="{{ $post->link }}" class="link" title="voir le lien" >Voir le tutoriel</a>
+                    @endif
 
-                    <textarea class="content">{{ $post->content }}</textarea>
 
+                    <p>Par {{ $post->user->name }}</p>
+
+                    <textarea readonly class="content">{{ $post->content }}</textarea>
+
+                    
+                    
+                    
+
+                    <div class="comments">
+                        
+                        <a class="commenter" href="{{ route('comment.create', $post) }}" title="Commenter" >Commenter</a>
+                        <p>Commentaires</p>
+                        @if($post->comments->count() > 0)
+                            @foreach ($post->comments as $comment)
+                                <div class="comment">
+                                    <p class="commenteur">{{ $comment->user->name }}</p>
+                                    <textarea readonly class="comment-content">{{ $comment->content }}</textarea>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>Pas de commentaires pour l'instant...</p>
+                        @endif
+                    </div>
                     <p><a href="{{ route('posts.index') }}" title="Retourner aux articles" >Retourner aux posts</a></p>
-
                 </div>
             </div>
         </div>

@@ -1,14 +1,41 @@
-.content {
+
+
+.comment-content, .content {
     background-color: transparent;
     overflow:hidden;
     resize:none;
     border: 0px;
     font-size: 1.3em;
-    height: 500px;
     width: 100%;
+}
+
+.comments {
+    width: 95%;
+    margin: 1px auto;
+    border-radius: 10px;
+    background-color: rgb(17,24,39);
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.comment {
+    margin-top: 10px;
+}
+
+.commenter {
+    float: right;
+}
+
+.commenteur {
+    margin-left: 10px;
 }
 
 .title {
     font-size: 3em;
     text-align: center;
+}
+
+.link {
+    float: right;
+    text-decoration: underline;
 }

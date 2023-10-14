@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Posts extends Model
+class Comment extends Model
 {
     use HasFactory;
 
@@ -18,8 +18,8 @@ class Posts extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments(): HasMany
+    public function post(): BelongsTo
     {
-        return $this->HasMany(Comment::class);
+        return $this->belongsTo(Posts::class);
     }
 }
