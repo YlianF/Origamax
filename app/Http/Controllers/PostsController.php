@@ -16,10 +16,11 @@ class PostsController extends Controller
     {
         //On récupère tous les Post
         // $posts = Posts::latest()->get();
-        $posts = Posts::with('user')->get();
+        $posts = Posts::with('user')->paginate();
 
-        // On transmet les Post à la vue
-        return view("posts.index", compact("posts"));
+        return view('posts.index', [
+            'posts' => $posts
+        ]);
     }
 
     /**
@@ -51,41 +52,42 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Posts $posts)
+    public function show(Posts $post)
     {
-        return view("posts.show", compact("posts"));
+        return view("posts.show", compact("post"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Posts $posts)
+    public function edit(Posts $post)
     {
-        return view("posts.edit", compact("posts"));
+        $this->authorize('update', $post);
+        return view("posts.edit", compact("post"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Posts $posts)
+    public function update(UpdatePostsRequest $request, Posts $post)
     {
-        $user = User::find($request->user()->id);
 
-        $post = $user->posts()->update([
+        $post->update([
             "title" => $request->title,
             "link" => $request->link,
             "content" => $request->content,
         ]);
     
-        return redirect(route("posts.show", $posts));
+        return redirect(route("posts.show", $post));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Posts $posts)
+    public function destroy(Posts $post)
     {
-        $posts->delete();
+        $this->authorize('delete', $post);
+        $post->delete();
 
         return redirect(route('posts.index'));
     }

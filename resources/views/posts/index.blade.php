@@ -24,10 +24,24 @@
 
                             <p class="content">{{ \Illuminate\Support\Str::limit($post->content, 200, $end='...') }}</p>
                             
-                            <a href="{{ route('posts.show', $post) }}" class="voirPost" title="Lire l'article" >Voir le post</a>
+                            <a href="{{ route('posts.show', $post) }}" class="voirPost" title="voir le post" >Voir le post</a>
+                        
+                            @can('update', $post)
+                            <a href="{{ route('posts.edit', $post) }}" class="editPost" title="modifier le post" >Modifier le post</a>
+                            @endcan
+
+                            @can('delete', $post)
+                            <form method="POST" action="{{ route('post.destroy', $post) }}" >
+                                @csrf
+                                @method("DELETE")
+                                <input type="submit" value="Supprimer le post" >
+                            </form>
+                            @endcan
+                        
                         </div>
                         @endforeach
                     </div>
+                    {{ $posts->links() }}
                 </div>
             </div>
         </div>
