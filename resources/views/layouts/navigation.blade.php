@@ -12,12 +12,19 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+                        {{ __('Accueil') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                        {{ __('Posts') }}
                     </x-nav-link>
                 </div>
             </div>
 
+            @if (auth()->check())
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -95,6 +102,13 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+            @else
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <x-responsive-nav-link align="right" :href="route('login')">
+                    {{ __('Login') }}
+                </x-responsive-nav-link>
+            </div>
+            @endif
         </div>
     </div>
 </nav>

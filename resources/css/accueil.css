@@ -1,0 +1,13 @@
+.accueil {
+    width: 100%;
+    text-align: center;
+}
+
+.titre {
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+.texte {
+    font-size: 1em;
+}
