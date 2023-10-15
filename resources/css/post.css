@@ -39,3 +39,11 @@
     float: right;
     text-decoration: underline;
 }
+
+.deletePost, .deleteComment {
+    color: red;
+}
+
+.editPost, .editComment {
+    color: yellow;
+}

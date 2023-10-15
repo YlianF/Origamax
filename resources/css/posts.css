@@ -2,12 +2,16 @@
     width: 95%;
     margin: 1px auto;
     margin-top: 30px;
-    border: 1px solid black;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .title {
-    font-size: 2em;
+    font-size: 1.7em;
+}
+
+.creator {
+    font-size: 1.2em;
 }
 
 .create {
@@ -22,8 +26,4 @@
 
 .content {
     font-size: 1em;
-}
-
-.link .voirPlus {
-    cursor: pointer;
 }

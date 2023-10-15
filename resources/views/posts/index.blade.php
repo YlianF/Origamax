@@ -13,32 +13,17 @@
 
                     <div>
                         @foreach ($posts as $post)
-                        <div class="post">
-                            <h1 class="title">{{ $post->title }}</h1>
+                        <a href="{{ route('posts.show', $post) }}" class="voirPost" title="voir le post" >
+                            <div class="post">
+                                <h1 class="title">{{ $post->title }}</h1>
 
-                            <h1 class="title">{{ $post->user->name }}</h1>
-                            
-                            @if ($post->link !== null)
-                            <a href="{{ $post->link }}" class="link" title="voir le lien" >Voir le tutoriel</a>
-                            @endif
+                                <h1 class="title">{{ $post->user->name }}</h1>
+                                
 
-                            <p class="content">{{ \Illuminate\Support\Str::limit($post->content, 200, $end='...') }}</p>
-                            
-                            <a href="{{ route('posts.show', $post) }}" class="voirPost" title="voir le post" >Voir le post</a>
-                        
-                            @can('update', $post)
-                            <a href="{{ route('posts.edit', $post) }}" class="editPost" title="modifier le post" >Modifier le post</a>
-                            @endcan
-
-                            @can('delete', $post)
-                            <form method="POST" action="{{ route('post.destroy', $post) }}" >
-                                @csrf
-                                @method("DELETE")
-                                <input type="submit" value="Supprimer le post" >
-                            </form>
-                            @endcan
-                        
-                        </div>
+                                <p class="content">{{ \Illuminate\Support\Str::limit($post->content, 200, $end='...') }}</p>
+                                
+                            </div>
+                        </a>
                         @endforeach
                     </div>
                     {{ $posts->links() }}

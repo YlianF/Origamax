@@ -10,13 +10,25 @@
 
                     
                     @if ($post->link !== null)
-                    <a href="{{ $post->link }}" class="link" title="voir le lien" >Voir le tutoriel</a>
+                        <a href="{{ $post->link }}" class="link" title="voir le lien" >Voir le tutoriel</a>
                     @endif
 
 
                     <p>Par {{ $post->user->name }}</p>
 
                     <textarea readonly class="content">{{ $post->content }}</textarea>
+
+                    @can('update', $post)
+                        <a href="{{ route('posts.edit', $post) }}" class="editPost" title="modifier le post" >Modifier le post</a>
+                    @endcan
+
+                    @can('delete', $post)
+                        <form method="POST" action="{{ route('post.destroy', $post) }}" >
+                            @csrf
+                            @method("DELETE")
+                            <input type="submit" class="deletePost" value="Supprimer le post" >
+                        </form>
+                    @endcan
 
                     
                     
@@ -27,14 +39,32 @@
                         <a class="commenter" href="{{ route('comment.create', $post) }}" title="Commenter" >Commenter</a>
                         <p>Commentaires</p>
                         @if($post->comments->count() > 0)
+
                             @foreach ($post->comments as $comment)
+
                                 <div class="comment">
                                     <p class="commenteur">{{ $comment->user->name }}</p>
                                     <textarea readonly class="comment-content">{{ $comment->content }}</textarea>
                                 </div>
+
+                                @can('update', $comment)
+                                    <a href="{{ route('comment.edit', $comment) }}" class="editComment" title="modifier le commentaire" >Modifier le commentaire</a>
+                                @endcan
+
+                                @can('delete', $comment)
+                                    <form method="POST" action="{{ route('comment.destroy', $comment) }}" >
+                                        @csrf
+                                        @method("DELETE")
+                                        <input type="submit" class="deleteComment" value="Supprimer le commentaire" >
+                                    </form>
+                                @endcan
+
                             @endforeach
+
                         @else
+
                             <p>Pas de commentaires pour l'instant...</p>
+
                         @endif
                     </div>
                     <p><a href="{{ route('posts.index') }}" title="Retourner aux articles" >Retourner aux posts</a></p>

@@ -22,18 +22,12 @@ class CommentController extends Controller
     {
         $user = User::find($request->user()->id);
 
-        
-
         $comment = $user->comments()->create([
             "content" => $request->content,
             "posts_id" => $post->id,
         ]);
 
-
         event(new CommentEvent($comment, $post));
-
-        
-
 
         return view("posts.show", compact("post"));
     }
