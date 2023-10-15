@@ -14,6 +14,7 @@ class CommentController extends Controller
 {
     public function create(Posts $post)
     {
+
         return view("comments.edit", compact("post"));
     }
 
@@ -31,4 +32,15 @@ class CommentController extends Controller
 
         return view("posts.show", compact("post"));
     }
+
+
+    public function destroy(Posts $post, Comment $comment)
+    {
+        $this->authorize('delete', $comment);
+        $comment->delete();
+
+        return view("posts.show", compact("post"));
+    }
+
+
 }

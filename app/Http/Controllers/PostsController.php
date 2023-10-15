@@ -53,9 +53,6 @@ class PostsController extends Controller
      */
     public function show(Posts $post)
     {
-        
-
-
         return view("posts.show", compact("post"));
     }
 

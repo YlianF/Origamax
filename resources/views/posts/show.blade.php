@@ -47,12 +47,8 @@
                                     <textarea readonly class="comment-content">{{ $comment->content }}</textarea>
                                 </div>
 
-                                @can('update', $comment)
-                                    <a href="{{ route('comment.edit', $comment) }}" class="editComment" title="modifier le commentaire" >Modifier le commentaire</a>
-                                @endcan
-
                                 @can('delete', $comment)
-                                    <form method="POST" action="{{ route('comment.destroy', $comment) }}" >
+                                    <form method="POST" action="{{ route('comment.destroy', [$post, $comment]) }}" >
                                         @csrf
                                         @method("DELETE")
                                         <input type="submit" class="deleteComment" value="Supprimer le commentaire" >
