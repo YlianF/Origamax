@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Models\Comment;
 use App\Models\Posts;
 
+use App\Notifications\MailNotif;
 use App\Mail\PostCommented;
 use App\Events\CommentEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,6 +28,11 @@ class CommentListener
      */
     public function handle(CommentEvent $event): void
     {
-        Mail::to($event->post->user->email)->send(new PostCommented($event->comment));
+        // Mail::to($event->post->user->email)->send(new PostCommented($event->comment));
+        // mieux afficher le mail
+        // notification 
+
+        $user = $event->post->user;
+        $user->notify(new MailNotif($event));
     }
 }

@@ -13,17 +13,17 @@
 
                     <div>
                         @foreach ($posts as $post)
-                        <a href="{{ route('posts.show', $post) }}" class="voirPost" title="voir le post" >
-                            <div class="post">
-                                <h1 class="title">{{ $post->title }}</h1>
+                            <a href="{{ route('posts.show', $post) }}" class="voirPost" title="voir le post" >
+                                <div class="post">
+                                    <h1 class="title">{{ $post->title }}</h1>
 
-                                <h1 class="title">{{ $post->user->name }}</h1>
-                                
+                                    <h1 class="title">{{ $post->user->name }}</h1>
+                                        
 
-                                <p class="content">{{ \Illuminate\Support\Str::limit($post->content, 200, $end='...') }}</p>
-                                
-                            </div>
-                        </a>
+                                    <p class="content">{{ \Illuminate\Support\Str::limit($post->content, 200, $end='...') }}</p>
+                                        
+                                </div>
+                            </a>
                         @endforeach
                     </div>
                     {{ $posts->links() }}

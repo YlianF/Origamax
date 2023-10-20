@@ -19,9 +19,13 @@ class PostPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Posts $posts): bool
+    public function view(User $user, Posts $post): bool
     {
-        //
+        if ($post->isVisible === 0) {
+            return $user->id === $post->user_id;
+        } else {
+            return true;
+        }
     }
 
     /**

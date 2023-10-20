@@ -7,7 +7,21 @@
                     <h1>écrire un Commentaire</h1>
 
 
+                    <!-- Si nous avons un Post $post -->
+                    @if (isset($comment))
+
+                    <!-- Le formulaire est géré par la route "posts.update" -->
+                    <form method="POST" action="{{ route('comment.update', [$post, $comment]) }}" enctype="multipart/form-data" >
+
+                        <!-- <input type="hidden" name="_method" value="PUT"> -->
+                        @method('PUT')
+
+                    @else
+
+                    <!-- Le formulaire est géré par la route "posts.store" -->
                     <form method="POST" action="{{ route('comment.store', $post) }}" enctype="multipart/form-data" >
+
+                    @endif
 
                         <!-- Le token CSRF -->
                         @csrf

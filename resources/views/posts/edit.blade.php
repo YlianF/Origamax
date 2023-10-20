@@ -61,6 +61,18 @@
                             @enderror
                         </p>
 
+                        <label>Publier
+                            <input type="radio" name="isVisible" value="true" />
+                        </label> 
+                        <br>
+                        <label>Ne pas publier
+                            <input type="radio" name="isVisible" value="false" />
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
                         <input type="submit" name="valider" value="Valider" >
 
                     </form>

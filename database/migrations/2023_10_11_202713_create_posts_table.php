@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('content');
             $table->string('link')->nullable();
+            $table->boolean('isVisible');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

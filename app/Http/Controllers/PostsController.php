@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePostsRequest;
 use App\Models\Posts;
 use App\Models\User;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 use Mail;
 
@@ -17,7 +18,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Posts::with('user')->paginate();
+        $posts = Posts::with('user')
+                    ->where('isVisible', 1)
+                    ->orWhere('user_id', Auth::user()->id)
+                    ->paginate();
 
         return view('posts.index', [
             'posts' => $posts
@@ -39,13 +43,20 @@ class PostsController extends Controller
     {
         $user = User::find($request->user()->id);
 
+        if ($request->isVisible === "true") {
+            $request->isVisible = true;
+        } else {
+            $request->isVisible = false;
+        }
+
         $post = $user->posts()->create([
             "title" => $request->title,
             "link" => $request->link,
             "content" => $request->content,
+            "isVisible" => $request->isVisible,
         ]);
 
-        return redirect(route("posts.index"));
+        return to_route('posts.show', ['post' => $post->id]);
     }
 
     /**
@@ -53,6 +64,7 @@ class PostsController extends Controller
      */
     public function show(Posts $post)
     {
+        $this->authorize('view', $post);
         return view("posts.show", compact("post"));
     }
 
@@ -77,7 +89,7 @@ class PostsController extends Controller
             "content" => $request->content,
         ]);
     
-        return redirect(route("posts.show", $post));
+        return to_route('posts.show', ['post' => $post->id]);
     }
 
     /**
@@ -88,6 +100,6 @@ class PostsController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
 
-        return redirect(route('posts.index'));
+        return to_route('posts.index');
     }
 }
